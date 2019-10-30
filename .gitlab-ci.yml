@@ -1,0 +1,15 @@
+include:
+  - project: 'redmic-project/gitlab-ci-templates'
+    ref: master
+    file: '/deployment.yml'
+
+stages:
+  - deploy
+
+variables:
+  STACK: metric
+  IMAGE_NAME: grafana/grafana
+
+.deploy:
+  environment:
+    url: https://${CI_PROJECT_NAME}.${PUBLIC_HOSTNAME}

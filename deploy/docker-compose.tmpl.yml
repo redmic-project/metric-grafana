@@ -1,0 +1,96 @@
+version: '3.5'
+
+services:
+  grafana:
+    image: ${IMAGE_NAME:-grafana/grafana}:${IMAGE_TAG:-latest}
+    environment:
+      GF_PATHS_DATA:
+      GF_PATHS_PROVISIONING:
+      GF_INSTALL_PLUGINS:
+      GF_SERVER_HTTP_PORT:
+      GF_SERVER_ROOT_URL:
+      GF_SERVER_ENABLE_GZIP:
+      GF_SECURITY_ADMIN_USER:
+      GF_SECURITY_ADMIN_PASSWORD:
+      GF_USERS_ALLOW_SIGN_UP:
+      GF_USERS_AUTO_ASSIGN_ORG:
+      GF_USERS_AUTO_ASSIGN_ORG_ID:
+      GF_USERS_AUTO_ASSIGN_ORG_ROLE:
+      GF_SMTP_ENABLED:
+      GF_SMTP_FROM_ADDRESS:
+      GF_SMTP_FROM_NAME:
+      GF_SMTP_HOST:
+      GF_SMTP_SKIP_VERIFY:
+      GF_SMTP_USER:
+      GF_SMTP_PASSWORD:
+      GF_LOG_MODE:
+      GF_LOG_LEVEL:
+      DASHBOARDS_PATH:
+      PROMETHEUS_URL:
+      ELASTICSEARCH_URL:
+      ELASTICSEARCH_USER:
+      ELASTICSEARCH_PASS:
+    networks:
+      metric-net:
+      traefik-net:
+    volumes:
+      - data-vol:${GF_PATHS_DATA}
+    configs:
+      - source: datasources-config
+        target: ${GF_PATHS_PROVISIONING}/datasources/datasources.yml
+      - source: dashboards-providers-config
+        target: ${GF_PATHS_PROVISIONING}/dashboards/dashboards_providers.yml
+      - source: nodes-dashboard-config
+        target: ${DASHBOARDS_PATH}/swarmprom-nodes.json
+      - source: services-dashboard-config
+        target: ${DASHBOARDS_PATH}/swarmprom-services.json
+      - source: prometheus-dashboard-config
+        target: ${DASHBOARDS_PATH}/swarmprom-prometheus.json
+    deploy:
+      mode: replicated
+      replicas: ${REPLICAS:-1}
+      labels:
+        traefik.frontend.rule: Host:${TRAEFIK_SUBDOMAIN:-grafana}.${PUBLIC_HOSTNAME}
+        traefik.backend: grafana
+        traefik.port: '${GF_SERVER_HTTP_PORT}'
+      restart_policy:
+        delay: ${RESTART_DELAY:-10s}
+      update_config:
+        delay: ${UPDATE_DELAY:-1m}
+      resources:
+        limits:
+          cpus: '${RESOURCES_LIMITS_CPUS:-1}'
+          memory: ${RESOURCES_LIMITS_MEMORY:-128M}
+        reservations:
+          cpus: '${RESOURCES_RESERVATIONS_CPUS:-0.001}'
+          memory: ${RESOURCES_RESERVATIONS_MEMORY:-64M}
+
+networks:
+  metric-net:
+    name: ${METRIC_NET_NAME:-metric-net}
+    external: true
+
+  traefik-net:
+    name: ${TRAEFIK_NET_NAME:-traefik-net}
+    external: true
+
+configs:
+  datasources-config:
+    name: ${DATASOURCES_CONFIG_NAME:-grafana-datasources}
+    file: ./config/datasources.yml
+
+  dashboards-providers-config:
+    name: ${DASHBOARDS_PROVIDERS_CONFIG_NAME:-grafana-dashboards-providers}
+    file: ./config/dashboards_providers.yml
+
+  nodes-dashboard-config:
+    name: ${NODES_DASHBOARD_CONFIG_NAME:-grafana-nodes-dashboard}
+    file: ./config/dashboards/swarmprom-nodes.json
+
+  services-dashboard-config:
+    name: ${SERVICES_DASHBOARD_CONFIG_NAME:-grafana-services-dashboard}
+    file: ./config/dashboards/swarmprom-services.json
+
+  prometheus-dashboard-config:
+    name: ${PROMETHEUS_DASHBOARD_CONFIG_NAME:-grafana-prometheus-dashboard}
+    file: ./config/dashboards/swarmprom-prometheus.json
