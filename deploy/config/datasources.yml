@@ -27,9 +27,12 @@ datasources:
     basicAuthUser: ${ELASTICSEARCH_USER}
     secureJsonData:
       basicAuthPassword: ${ELASTICSEARCH_PASS}
-    timeInterval: 1m
-    esVersion: 60
-    timeField: '@timestamp'
-    interval: Monthly
+    jsonData:
+      timeInterval: 1m
+      esVersion: 60
+      timeField: '@timestamp'
+      interval: Monthly
+      logMessageField: log
+      logLevelField: source
     version: 1
     editable: true
