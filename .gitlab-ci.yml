@@ -8,7 +8,7 @@ stages:
 
 variables:
   STACK: metric
-  IMAGE_NAME: grafana/grafana
+  DD_IMAGE_NAME: grafana/grafana
 
 .deploy:
   environment:
