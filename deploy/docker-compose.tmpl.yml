@@ -4,10 +4,10 @@ services:
   grafana:
     image: ${IMAGE_NAME:-grafana/grafana}:${IMAGE_TAG:-latest}
     environment:
+      GF_SERVER_ROOT_URL: ${TRAEFIK_PROTOCOL}://${TRAEFIK_SUBDOMAIN}.${PUBLIC_HOSTNAME}
       GF_PATHS_DATA:
       GF_PATHS_PROVISIONING:
       GF_INSTALL_PLUGINS:
-      GF_SERVER_ROOT_URL: ${TRAEFIK_PROTOCOL}://${TRAEFIK_SUBDOMAIN}.${PUBLIC_HOSTNAME}
       GF_SERVER_HTTP_PORT:
       GF_SERVER_ENABLE_GZIP:
       GF_SECURITY_ADMIN_USER:
@@ -84,10 +84,12 @@ services:
 networks:
   metric-net:
     name: ${METRIC_NET_NAME:-metric-net}
+    driver: ${METRIC_NET_DRIVER:-overlay}
     external: true
 
   traefik-net:
     name: ${TRAEFIK_NET_NAME:-traefik-net}
+    driver: ${TRAEFIK_NET_DRIVER:-overlay}
     external: true
 
 configs:
