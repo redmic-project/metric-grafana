@@ -25,14 +25,20 @@ services:
       GF_SMTP_PASSWORD:
       GF_LOG_MODE:
       GF_LOG_LEVEL:
+      GF_AUTH_ANONYMOUS_ENABLED:
       DASHBOARDS_PATH:
       PROMETHEUS_URL:
       ELASTICSEARCH_URL:
       ELASTICSEARCH_USER:
       ELASTICSEARCH_PASS:
+      POSTGRES_URL:
+      POSTGRES_USER:
+      POSTGRES_PASS:
+      POSTGRES_DB:
     networks:
       metric-net:
       traefik-net:
+      postgres-net:
     volumes:
       - data-vol:${GF_PATHS_DATA}
     configs:
@@ -90,6 +96,11 @@ networks:
   traefik-net:
     name: ${TRAEFIK_NET_NAME:-traefik-net}
     driver: ${TRAEFIK_NET_DRIVER:-overlay}
+    external: true
+
+  postgres-net:
+    name: ${POSTGRES_NET_NAME:-postgres-net}
+    driver: ${POSTGRES_NET_DRIVER:-overlay}
     external: true
 
 configs:

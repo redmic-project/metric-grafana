@@ -7,6 +7,9 @@ deleteDatasources:
   - name: Elasticsearch-Fluentd
     orgId: ${GF_USERS_AUTO_ASSIGN_ORG_ID}
 
+  - name: PostgreSQL
+    orgId: ${GF_USERS_AUTO_ASSIGN_ORG_ID}
+
 datasources:
   - name: Prometheus
     type: prometheus
@@ -34,5 +37,23 @@ datasources:
       interval: Monthly
       logMessageField: log
       logLevelField: source
+    version: 1
+    editable: true
+
+  - name: PostgreSQL
+    type: postgres
+    orgId: ${GF_USERS_AUTO_ASSIGN_ORG_ID}
+    url: ${POSTGRES_URL}
+    database: ${POSTGRES_DB}
+    user: ${POSTGRES_USER}
+    secureJsonData:
+      password: ${POSTGRES_PASS}
+    jsonData:
+      sslmode: "disable"
+      maxOpenConns: 3
+      maxIdleConns: 1
+      connMaxLifetime: 14400
+      postgresVersion: 1000
+      timescaledb: false
     version: 1
     editable: true
