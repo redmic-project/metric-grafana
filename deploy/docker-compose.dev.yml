@@ -5,6 +5,6 @@ volumes:
     name: ${DATA_VOL_NAME}
     driver: local
     driver_opts:
-      type: ${DATA_VOL_TYPE:-nfs4}
-      o: addr=${DATA_VOL_ADDR:-127.0.0.1},${DATA_VOL_OPTIONS:-rw,nolock,noatime,tcp,rsize=8192,wsize=8192,timeo=14}
+      type: ${VOL_TYPE:-nfs4}
+      o: addr=${VOL_ADDR:-127.0.0.1},${VOL_OPTIONS:-rw,nolock,noatime,tcp,rsize=8192,wsize=8192,timeo=14}
       device: ${DATA_VOL_DEVICE:-:/grafana-vol/}
