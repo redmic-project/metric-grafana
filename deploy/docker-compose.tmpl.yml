@@ -37,6 +37,7 @@ services:
     networks:
       metric-net:
       traefik-net:
+      log-net:
       postgres-net:
     volumes:
       - data-vol:${GF_PATHS_DATA}
@@ -95,6 +96,11 @@ networks:
   traefik-net:
     name: ${TRAEFIK_NET_NAME:-traefik-net}
     driver: ${TRAEFIK_NET_DRIVER:-overlay}
+    external: true
+
+  log-net:
+    name: ${LOG_NET_NAME:-log-net}
+    driver: ${LOG_NET_DRIVER:-overlay}
     external: true
 
   postgres-net:
