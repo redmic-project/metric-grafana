@@ -8,6 +8,7 @@ services:
       GF_PATHS_DATA:
       GF_PATHS_PROVISIONING:
       GF_INSTALL_PLUGINS:
+      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS:
       GF_SERVER_HTTP_PORT:
       GF_SERVER_ENABLE_GZIP:
       GF_SECURITY_ADMIN_USER:
@@ -25,14 +26,19 @@ services:
       GF_SMTP_PASSWORD:
       GF_LOG_MODE:
       GF_LOG_LEVEL:
+      GF_AUTH_ANONYMOUS_ENABLED:
       DASHBOARDS_PATH:
       PROMETHEUS_URL:
-      ELASTICSEARCH_URL:
-      ELASTICSEARCH_USER:
-      ELASTICSEARCH_PASS:
+      LOKI_URL:
+      POSTGRES_URL:
+      POSTGRES_USER:
+      POSTGRES_PASS:
+      POSTGRES_DB:
     networks:
       metric-net:
       traefik-net:
+      log-net:
+      postgres-net:
     volumes:
       - data-vol:${GF_PATHS_DATA}
     configs:
@@ -48,14 +54,14 @@ services:
         target: ${DASHBOARDS_PATH}/swarmprom-prometheus.json
       - source: docker-dashboard-config
         target: ${DASHBOARDS_PATH}/docker.json
-      - source: elasticsearch-fluentd-dashboard-config
-        target: ${DASHBOARDS_PATH}/elasticsearch-fluentd.json
       - source: elasticsearch-dashboard-config
         target: ${DASHBOARDS_PATH}/elasticsearch.json
       - source: jvm-dashboard-config
         target: ${DASHBOARDS_PATH}/jvm.json
       - source: kafka-dashboard-config
         target: ${DASHBOARDS_PATH}/kafka.json
+      - source: logging-loki-dashboard-config
+        target: ${DASHBOARDS_PATH}/logging-loki.json
       - source: postgres-dashboard-config
         target: ${DASHBOARDS_PATH}/postgres.json
       - source: traefik-dashboard-config
@@ -92,6 +98,16 @@ networks:
     driver: ${TRAEFIK_NET_DRIVER:-overlay}
     external: true
 
+  log-net:
+    name: ${LOG_NET_NAME:-log-net}
+    driver: ${LOG_NET_DRIVER:-overlay}
+    external: true
+
+  postgres-net:
+    name: ${POSTGRES_NET_NAME:-postgres-net}
+    driver: ${POSTGRES_NET_DRIVER:-overlay}
+    external: true
+
 configs:
   datasources-config:
     name: ${DATASOURCES_CONFIG_NAME:-grafana-datasources}
@@ -117,10 +133,6 @@ configs:
     name: ${DOCKER_DASHBOARD_CONFIG_NAME:-grafana-docker-dashboard}
     file: ./config/dashboards/docker.json
 
-  elasticsearch-fluentd-dashboard-config:
-    name: ${ELASTICSEARCH_FLUENTD_DASHBOARD_CONFIG_NAME:-grafana-elasticsearch-fluentd-dashboard}
-    file: ./config/dashboards/elasticsearch-fluentd.json
-
   elasticsearch-dashboard-config:
     name: ${ELASTICSEARCH_DASHBOARD_CONFIG_NAME:-grafana-elasticsearch-dashboard}
     file: ./config/dashboards/elasticsearch.json
@@ -132,6 +144,10 @@ configs:
   kafka-dashboard-config:
     name: ${KAFKA_DASHBOARD_CONFIG_NAME:-grafana-kafka-dashboard}
     file: ./config/dashboards/kafka.json
+
+  logging-loki-dashboard-config:
+    name: ${LOGGING_LOKI_DASHBOARD_CONFIG_NAME:-logging-loki-dashboard}
+    file: ./config/dashboards/logging-loki.json
 
   postgres-dashboard-config:
     name: ${POSTGRES_DASHBOARD_CONFIG_NAME:-grafana-postgres-dashboard}

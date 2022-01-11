@@ -4,7 +4,10 @@ deleteDatasources:
   - name: Prometheus
     orgId: ${GF_USERS_AUTO_ASSIGN_ORG_ID}
 
-  - name: Elasticsearch-Fluentd
+  - name: Loki
+    orgId: ${GF_USERS_AUTO_ASSIGN_ORG_ID}
+
+  - name: PostgreSQL
     orgId: ${GF_USERS_AUTO_ASSIGN_ORG_ID}
 
 datasources:
@@ -17,22 +20,29 @@ datasources:
     version: 1
     editable: true
 
-  - name: Elasticsearch-Fluentd
-    type: elasticsearch
+  - name: Loki
+    type: loki
     access: proxy
     orgId: ${GF_USERS_AUTO_ASSIGN_ORG_ID}
-    url: ${ELASTICSEARCH_URL}
-    database: '[fluentd-]YYYYMM'
-    basicAuth: true
-    basicAuthUser: ${ELASTICSEARCH_USER}
+    url: ${LOKI_URL}
+    isDefault: false
+    version: 1
+    editable: true
+
+  - name: PostgreSQL
+    type: postgres
+    orgId: ${GF_USERS_AUTO_ASSIGN_ORG_ID}
+    url: ${POSTGRES_URL}
+    database: ${POSTGRES_DB}
+    user: ${POSTGRES_USER}
     secureJsonData:
-      basicAuthPassword: ${ELASTICSEARCH_PASS}
+      password: ${POSTGRES_PASS}
     jsonData:
-      timeInterval: 1m
-      esVersion: 60
-      timeField: '@timestamp'
-      interval: Monthly
-      logMessageField: log
-      logLevelField: source
+      sslmode: "disable"
+      maxOpenConns: 3
+      maxIdleConns: 1
+      connMaxLifetime: 14400
+      postgresVersion: 1000
+      timescaledb: false
     version: 1
     editable: true
