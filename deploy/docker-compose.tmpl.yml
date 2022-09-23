@@ -72,9 +72,10 @@ services:
       mode: replicated
       replicas: ${REPLICAS:-1}
       labels:
-        traefik.frontend.rule: Host:${TRAEFIK_SUBDOMAIN}.${PUBLIC_HOSTNAME}
-        traefik.backend: grafana
-        traefik.port: '${GF_SERVER_HTTP_PORT}'
+        traefik.enable: 'true'
+        traefik.http.routers.grafana.entrypoints: ${TRAEFIK_ENTRYPOINT:-http}
+        traefik.http.routers.grafana.rule: Host(`${TRAEFIK_SUBDOMAIN}.${PUBLIC_HOSTNAME}`)
+        traefik.http.services.grafana.loadbalancer.server.port: ${GF_SERVER_HTTP_PORT}
       restart_policy:
         delay: ${RESTART_DELAY:-10s}
       update_config:
