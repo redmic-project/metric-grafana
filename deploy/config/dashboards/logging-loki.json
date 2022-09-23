@@ -23,7 +23,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": 20,
-  "iteration": 1641892161727,
+  "iteration": 1663926754107,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -284,7 +284,7 @@
         "showCommonLabels": true,
         "showLabels": true,
         "showTime": true,
-        "sortOrder": "Descending",
+        "sortOrder": "Ascending",
         "wrapLogMessage": true
       },
       "pluginVersion": "7.2.1",
@@ -1134,6 +1134,6 @@
   "timezone": "",
   "title": "Logs",
   "uid": "q8NhPr07k",
-  "version": 14,
+  "version": 15,
   "weekStart": ""
 }
