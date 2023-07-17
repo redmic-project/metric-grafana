@@ -3,23 +3,37 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "editable": true,
-  "gnetId": null,
+  "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 4,
+  "id": 2,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -28,27 +42,56 @@
       },
       "id": 45,
       "panels": [],
-      "repeat": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "SUMMARY",
       "type": "row"
     },
     {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": false,
-      "colors": [
-        "rgba(245, 54, 54, 0.9)",
-        "rgba(112, 237, 40, 0.89)",
-        "rgba(50, 172, 45, 0.97)"
-      ],
-      "datasource": "Prometheus",
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "rgb(31, 120, 193)",
+            "mode": "fixed"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 4,
@@ -57,42 +100,29 @@
         "y": 1
       },
       "id": 9,
-      "interval": null,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": true
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
       },
-      "tableColumn": "",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "(socket_open - socket_close)",
           "interval": "",
           "intervalFactor": 1,
@@ -101,37 +131,52 @@
           "step": 2
         }
       ],
-      "thresholds": "",
       "title": "Connected Clients",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": false,
-      "colors": [
-        "rgba(39, 169, 34, 0.97)",
-        "rgba(237, 129, 40, 0.89)",
-        "rgba(245, 54, 54, 0.9)"
-      ],
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "description": "This is the current total of living queues (started queue processes). These queues might be in an online or an offline state (ie. belong to an online or offline client).",
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "rgb(31, 120, 193)",
+            "mode": "fixed"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(39, 169, 34, 0.97)",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 10000
+              },
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": 20000
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 4,
@@ -140,42 +185,29 @@
         "y": 1
       },
       "id": 13,
-      "interval": null,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": true
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
       },
-      "tableColumn": "",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "queue_processes",
           "intervalFactor": 2,
           "metric": "queue_processes",
@@ -183,38 +215,52 @@
           "step": 4
         }
       ],
-      "thresholds": "10000, 20000",
       "title": "Queues Processes",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": false,
-      "colors": [
-        "rgba(50, 172, 45, 0.97)",
-        "rgba(237, 129, 40, 0.89)",
-        "rgba(245, 54, 54, 0.9)"
-      ],
-      "datasource": "Prometheus",
-      "decimals": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "description": "Current rate per second of received MQTT PUBLISH frames by the broker.",
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "rgb(31, 120, 193)",
+            "mode": "fixed"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "rgba(50, 172, 45, 0.97)",
+                "value": null
+              },
+              {
+                "color": "rgba(237, 129, 40, 0.89)",
+                "value": 10000
+              },
+              {
+                "color": "rgba(245, 54, 54, 0.9)",
+                "value": 200000
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 4,
@@ -223,42 +269,29 @@
         "y": 1
       },
       "id": 20,
-      "interval": null,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": true
+      "options": {
+        "colorMode": "none",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
       },
-      "tableColumn": "",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "rate(mqtt_publish_received{mqtt_version=\"4\"}[30s])",
           "format": "time_series",
           "hide": false,
@@ -268,37 +301,47 @@
           "step": 4
         }
       ],
-      "thresholds": "10000, 200000",
       "title": "Current MQTT Receive rate",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": false,
-      "colors": [
-        "rgba(245, 54, 54, 0.9)",
-        "rgba(237, 129, 40, 0.89)",
-        "rgba(50, 172, 45, 0.97)"
-      ],
-      "datasource": "Prometheus",
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "description": "Current rate per second of sent MQTT PUBLISH frames by the broker.",
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 4,
@@ -307,42 +350,29 @@
         "y": 1
       },
       "id": 21,
-      "interval": null,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
       },
-      "tableColumn": "",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "rate(mqtt_publish_sent{mqtt_version=\"4\"}[30s])",
           "format": "time_series",
           "hide": true,
@@ -352,38 +382,47 @@
           "step": 4
         }
       ],
-      "thresholds": "",
       "title": "Current MQTT send rate",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": false,
-      "colors": [
-        "rgba(245, 54, 54, 0.9)",
-        "rgba(237, 129, 40, 0.89)",
-        "rgba(50, 172, 45, 0.97)"
-      ],
-      "datasource": "Prometheus",
-      "decimals": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "description": "VerneMQ Broker Uptime",
-      "format": "ms",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 4,
@@ -392,42 +431,29 @@
         "y": 1
       },
       "id": 22,
-      "interval": null,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
       },
-      "tableColumn": "",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "system_wallclock",
           "interval": "",
           "intervalFactor": 2,
@@ -437,38 +463,49 @@
           "step": 4
         }
       ],
-      "thresholds": "",
       "title": "VerneMQ Node Uptime",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "type": "stat"
     },
     {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": false,
-      "colors": [
-        "rgba(245, 54, 54, 0.9)",
-        "rgba(237, 129, 40, 0.89)",
-        "rgba(50, 172, 45, 0.97)"
-      ],
-      "datasource": "Prometheus",
-      "decimals": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "description": "VerneMQ Broker average Erlang Scheduler utilization.",
-      "format": "percent",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": true,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "text": "N/A"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
       },
       "gridPos": {
         "h": 4,
@@ -477,42 +514,27 @@
         "y": 1
       },
       "id": 30,
-      "interval": null,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
       "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
+      "options": {
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
       },
-      "tableColumn": "",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "system_utilization",
           "interval": "",
           "intervalFactor": 2,
@@ -522,21 +544,15 @@
           "step": 4
         }
       ],
-      "thresholds": "",
       "title": "Erlang VM Utilization",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "type": "gauge"
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -548,14 +564,21 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 2
+            "y": 6
           },
+          "hiddenSeries": false,
           "id": 3,
           "legend": {
             "avg": false,
@@ -570,15 +593,24 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "9.1.6",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(socket_open[30s])",
               "intervalFactor": 2,
               "legendFormat": "Connect (Socket Open)",
@@ -587,6 +619,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(socket_close[30s])",
               "intervalFactor": 2,
               "legendFormat": "Disconnect (Socket Close)",
@@ -595,8 +631,7 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
+          "timeRegions": [],
           "title": "Connect/Disconnect Rate (per second)",
           "tooltip": {
             "shared": true,
@@ -606,36 +641,44 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "ops",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
-          ]
+          ],
+          "yaxis": {
+            "align": false
+          }
         }
       ],
-      "repeat": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "CLIENTS",
       "type": "row"
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -647,14 +690,21 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 3
+            "y": 7
           },
+          "hiddenSeries": false,
           "id": 4,
           "legend": {
             "avg": false,
@@ -669,15 +719,24 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "9.1.6",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "queue_processes",
               "intervalFactor": 2,
               "legendFormat": "Queue Total",
@@ -687,8 +746,7 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
+          "timeRegions": [],
           "title": "Current Queue Total",
           "tooltip": {
             "shared": true,
@@ -698,40 +756,43 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
-          ]
+          ],
+          "yaxis": {
+            "align": false
+          }
         },
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 12,
             "x": 12,
-            "y": 3
+            "y": 7
           },
+          "hiddenSeries": false,
           "id": 5,
           "legend": {
             "avg": false,
@@ -746,15 +807,24 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "9.1.6",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(queue_setup[60s])",
               "intervalFactor": 2,
               "legendFormat": "Queue Setup",
@@ -763,6 +833,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(queue_teardown[60s])",
               "intervalFactor": 2,
               "legendFormat": "Queue Teardown",
@@ -772,8 +846,7 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
+          "timeRegions": [],
           "title": "Queue Setup and Teardown Rate (per second)",
           "tooltip": {
             "shared": true,
@@ -783,40 +856,43 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "ops",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
-          ]
+          ],
+          "yaxis": {
+            "align": false
+          }
         },
         {
           "aliasColors": {},
           "bars": true,
-          "datasource": "Prometheus",
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
+          "fillGradient": 0,
           "gridPos": {
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 10
+            "y": 14
           },
+          "hiddenSeries": false,
           "id": 16,
           "legend": {
             "alignAsTable": true,
@@ -833,15 +909,24 @@
           "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
           "percentage": false,
+          "pluginVersion": "9.1.6",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(queue_message_in[1m])",
               "intervalFactor": 2,
               "legendFormat": "In",
@@ -850,6 +935,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(queue_message_out[1m])",
               "intervalFactor": 2,
               "legendFormat": "Out",
@@ -858,6 +947,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(queue_message_drop[1m])",
               "intervalFactor": 2,
               "legendFormat": "Dropped",
@@ -866,6 +959,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(queue_message_unhandled[1m])",
               "intervalFactor": 2,
               "legendFormat": "Unhandled",
@@ -875,8 +972,7 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
+          "timeRegions": [],
           "title": "Messages in Queues",
           "tooltip": {
             "shared": true,
@@ -886,36 +982,44 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
-          ]
+          ],
+          "yaxis": {
+            "align": false
+          }
         }
       ],
-      "repeat": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "QUEUES",
       "type": "row"
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -927,7 +1031,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -958,6 +1065,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "router_subscriptions",
               "intervalFactor": 2,
               "legendFormat": "Subscriptions Total",
@@ -967,8 +1078,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Router Subscriptions Total",
           "tooltip": {
             "shared": true,
@@ -978,25 +1087,18 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
@@ -1004,7 +1106,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -1035,6 +1140,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "router_memory",
               "intervalFactor": 2,
               "legendFormat": "Router Memory",
@@ -1044,8 +1153,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Router Memory",
           "tooltip": {
             "shared": true,
@@ -1055,7 +1162,6 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
@@ -1064,27 +1170,34 @@
               "format": "decbytes",
               "label": "",
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
         }
       ],
-      "repeat": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "SUBSCRIPTIONS",
       "type": "row"
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1096,7 +1209,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -1127,6 +1243,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "system_utilization",
               "intervalFactor": 2,
               "legendFormat": "System Utilization",
@@ -1136,8 +1256,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Average Erlang Scheduler Utilization",
           "tooltip": {
             "shared": true,
@@ -1147,25 +1265,18 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "percent",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
@@ -1173,7 +1284,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -1204,6 +1318,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(system_reductions[30s])",
               "intervalFactor": 2,
               "legendFormat": "System Reductions",
@@ -1213,8 +1331,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "System Reductions",
           "tooltip": {
             "shared": true,
@@ -1224,25 +1340,18 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "ops",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
@@ -1250,7 +1359,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -1281,6 +1393,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "system_utilization_scheduler_1",
               "intervalFactor": 2,
               "legendFormat": "Scheduler 1",
@@ -1289,6 +1405,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "system_utilization_scheduler_2",
               "intervalFactor": 2,
               "legendFormat": "Scheduler 2",
@@ -1297,6 +1417,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "system_utilization_scheduler_3",
               "intervalFactor": 2,
               "legendFormat": "Scheduler 3",
@@ -1305,6 +1429,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "system_utilization_scheduler_4",
               "intervalFactor": 2,
               "legendFormat": "Scheduler 4",
@@ -1314,8 +1442,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Erlang Scheduler Utilization",
           "tooltip": {
             "shared": true,
@@ -1325,7 +1451,6 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
@@ -1342,8 +1467,6 @@
               "format": "short",
               "label": "",
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
@@ -1351,7 +1474,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -1382,6 +1508,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(system_context_switches[30s])",
               "intervalFactor": 2,
               "legendFormat": "Erlang Context Switches",
@@ -1391,8 +1521,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Erlang System Context Switches",
           "tooltip": {
             "shared": true,
@@ -1402,7 +1530,6 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
@@ -1411,7 +1538,6 @@
               "format": "ops",
               "label": "",
               "logBase": 1,
-              "max": null,
               "min": "0",
               "show": true
             },
@@ -1419,8 +1545,6 @@
               "format": "short",
               "label": "",
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
@@ -1428,7 +1552,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -1459,6 +1586,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(system_io_in[30s])",
               "intervalFactor": 2,
               "legendFormat": "System IO IN",
@@ -1467,6 +1598,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(system_io_out[30s])",
               "intervalFactor": 2,
               "legendFormat": "System IO OUT",
@@ -1476,8 +1611,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "System IO",
           "tooltip": {
             "shared": true,
@@ -1487,25 +1620,18 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "Bps",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
@@ -1513,7 +1639,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -1544,6 +1673,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "system_run_queue",
               "intervalFactor": 2,
               "legendFormat": "Erlang Run Queue",
@@ -1553,8 +1686,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Erlang System Run Queue",
           "tooltip": {
             "shared": true,
@@ -1564,7 +1695,6 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
@@ -1573,7 +1703,6 @@
               "format": "short",
               "label": "",
               "logBase": 1,
-              "max": null,
               "min": "0",
               "show": true
             },
@@ -1581,8 +1710,6 @@
               "format": "short",
               "label": "",
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
@@ -1590,7 +1717,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -1621,6 +1751,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(system_gc_count[30s])",
               "intervalFactor": 2,
               "legendFormat": "Erlang GC Count",
@@ -1630,8 +1764,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Erlang System Garbage Collection Count",
           "tooltip": {
             "shared": true,
@@ -1641,7 +1773,6 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
@@ -1650,7 +1781,6 @@
               "format": "ops",
               "label": "",
               "logBase": 1,
-              "max": null,
               "min": "0",
               "show": true
             },
@@ -1658,8 +1788,6 @@
               "format": "short",
               "label": "",
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
@@ -1667,7 +1795,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -1698,6 +1829,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(system_words_reclaimed_by_gc[30s])",
               "intervalFactor": 2,
               "legendFormat": "Erlang GC Words Reclaimed",
@@ -1707,8 +1842,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Erlang System Number of Words Reclaimed by GC",
           "tooltip": {
             "shared": true,
@@ -1718,7 +1851,6 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
@@ -1727,7 +1859,6 @@
               "format": "short",
               "label": "",
               "logBase": 1,
-              "max": null,
               "min": "0",
               "show": true
             },
@@ -1735,19 +1866,29 @@
               "format": "short",
               "label": "",
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
         }
       ],
-      "repeat": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "ERLANG VM",
       "type": "row"
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1759,7 +1900,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -1790,6 +1934,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(bytes_received[30s])",
               "hide": false,
               "interval": "",
@@ -1801,8 +1949,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Bytes Received",
           "tooltip": {
             "shared": true,
@@ -1813,25 +1959,18 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "Bps",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
@@ -1839,7 +1978,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -1870,6 +2012,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(bytes_sent[30s])",
               "intervalFactor": 2,
               "legendFormat": "Bytes Sent",
@@ -1879,8 +2025,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Bytes Sent",
           "tooltip": {
             "shared": true,
@@ -1890,36 +2034,41 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "Bps",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
         }
       ],
-      "repeat": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "BYTES IN & OUT",
       "type": "row"
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1931,7 +2080,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -1962,6 +2114,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "retain_memory",
               "intervalFactor": 2,
               "legendFormat": "Retain Memory",
@@ -1971,8 +2127,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Retain Memory use",
           "tooltip": {
             "shared": true,
@@ -1982,25 +2136,18 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "decbytes",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
@@ -2008,7 +2155,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -2039,6 +2189,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "retain_messages",
               "intervalFactor": 2,
               "legendFormat": "Retained Messages",
@@ -2048,8 +2202,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Retained Messages Total",
           "tooltip": {
             "shared": true,
@@ -2059,36 +2211,41 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
         }
       ],
-      "repeat": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "RETAIN",
       "type": "row"
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2100,7 +2257,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -2133,6 +2293,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(socket_open[30s])",
               "intervalFactor": 2,
               "legendFormat": "Socket Open",
@@ -2141,6 +2305,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(socket_close[30s])",
               "intervalFactor": 2,
               "legendFormat": "Socket Close",
@@ -2149,6 +2317,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(socket_error[30s])",
               "intervalFactor": 2,
               "legendFormat": "Socket Error",
@@ -2158,8 +2330,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "TCP Sockets",
           "tooltip": {
             "shared": true,
@@ -2169,36 +2339,41 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "ops",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
         }
       ],
-      "repeat": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "TCP SOCKETS",
       "type": "row"
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2210,7 +2385,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -2241,6 +2419,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(cluster_bytes_sent[30s])",
               "intervalFactor": 2,
               "legendFormat": "Cluster Bytes Sent",
@@ -2249,6 +2431,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(cluster_bytes_received[30s])",
               "intervalFactor": 2,
               "legendFormat": "Cluster Bytes Received",
@@ -2257,6 +2443,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(cluster_bytes_dropped[30s])",
               "intervalFactor": 2,
               "legendFormat": "Cluster Bytes Dropped",
@@ -2266,8 +2456,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Cluster Communication",
           "tooltip": {
             "shared": true,
@@ -2277,36 +2465,41 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "Bps",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
         }
       ],
-      "repeat": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "NODE TO CLUSTER COMMUNICATION",
       "type": "row"
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2318,7 +2511,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 8,
@@ -2352,6 +2548,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_connack_bad_credentials_sent[30s])",
               "intervalFactor": 2,
               "legendFormat": "Connack Bad Credentials",
@@ -2360,6 +2560,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_connack_identifier_rejected_sent[30s])",
               "intervalFactor": 2,
               "legendFormat": "Connack ID rejected",
@@ -2368,6 +2572,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_connack_not_authorized_sent[30s])",
               "intervalFactor": 2,
               "legendFormat": "Connack Not Authorized",
@@ -2376,6 +2584,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_connack_server_unavailable_sent[30s])",
               "intervalFactor": 2,
               "legendFormat": "Connack Server Unavailable",
@@ -2384,6 +2596,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_connack_unacceptable_protocol_sent[30s])",
               "intervalFactor": 2,
               "legendFormat": "Connack Unacceptable Protocol",
@@ -2393,8 +2609,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "MQTT CONNACK Errors",
           "tooltip": {
             "shared": true,
@@ -2404,25 +2618,18 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "ops",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
@@ -2430,7 +2637,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 8,
@@ -2464,6 +2674,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_connect_received[30s])",
               "intervalFactor": 2,
               "legendFormat": "MQTT CONNECT Received",
@@ -2472,6 +2686,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_connack_accepted_sent[30s])",
               "intervalFactor": 2,
               "legendFormat": "MQTT CONNACK sent",
@@ -2481,8 +2699,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "MQTT CONNACK",
           "tooltip": {
             "shared": true,
@@ -2492,36 +2708,41 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "ops",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
         }
       ],
-      "repeat": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "MQTT CONNECT",
       "type": "row"
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2533,7 +2754,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 10,
@@ -2565,6 +2789,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_subscribe_received[30s])",
               "intervalFactor": 2,
               "legendFormat": "Subscribe Received",
@@ -2573,6 +2801,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_suback_sent[30s])",
               "intervalFactor": 2,
               "legendFormat": "SUBACK sent",
@@ -2581,6 +2813,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_subscribe_error[30s])",
               "intervalFactor": 2,
               "legendFormat": "Subscribe Error",
@@ -2589,6 +2825,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_subscribe_auth_error[30s])",
               "intervalFactor": 2,
               "legendFormat": "Subscribe Auth Error",
@@ -2598,8 +2838,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Subscribe & Subscribe Errors",
           "tooltip": {
             "shared": true,
@@ -2609,25 +2847,18 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "ops",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
@@ -2635,7 +2866,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 10,
@@ -2667,6 +2901,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_unsubscribe_received[30s])",
               "intervalFactor": 2,
               "legendFormat": "Unsubscribe Received",
@@ -2675,6 +2913,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_unsuback_sent[30s])",
               "intervalFactor": 2,
               "legendFormat": "UNSUBACK sent",
@@ -2683,6 +2925,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "mqtt_unsubscribe_error",
               "intervalFactor": 2,
               "legendFormat": "Unsubscribe Error",
@@ -2692,8 +2938,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Unsubscribe & Unsubscribe Errors",
           "tooltip": {
             "shared": true,
@@ -2703,36 +2947,41 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "ops",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
         }
       ],
-      "repeat": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "MQTT SUBSCRIBE",
       "type": "row"
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2744,7 +2993,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 8,
@@ -2776,6 +3028,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_publish_received[30s])",
               "intervalFactor": 2,
               "legendFormat": "PUBLISH Received",
@@ -2784,6 +3040,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_publish_sent[30s])",
               "intervalFactor": 2,
               "legendFormat": "PUBLISH Sent",
@@ -2792,6 +3052,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_publish_error[30s])",
               "intervalFactor": 2,
               "legendFormat": "PUBLISH Error",
@@ -2800,6 +3064,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "mqtt_publish_auth_error",
               "intervalFactor": 2,
               "legendFormat": "PUBLISH Auth Error",
@@ -2809,8 +3077,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "QOS 0,1,2: PUBLISH Received, Sent & Errors",
           "tooltip": {
             "shared": true,
@@ -2820,25 +3086,18 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "ops",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": false
             }
           ]
@@ -2846,7 +3105,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 8,
@@ -2878,6 +3140,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_puback_received[30s])",
               "intervalFactor": 2,
               "legendFormat": "PUBACK Received",
@@ -2886,6 +3152,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_puback_sent[30s])",
               "intervalFactor": 2,
               "legendFormat": "PUBACK Sent",
@@ -2894,6 +3164,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_puback_invalid_error[30s])",
               "intervalFactor": 2,
               "legendFormat": "PUBACK Invalid",
@@ -2903,8 +3177,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "QOS 1: PUBACK Received, Sent & Invalid",
           "tooltip": {
             "shared": true,
@@ -2914,25 +3186,18 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "ops",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
@@ -2940,7 +3205,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 8,
@@ -2972,6 +3240,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_pubrec_received[30s])",
               "intervalFactor": 2,
               "legendFormat": "PUBREC Received",
@@ -2980,6 +3252,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_pubrec_sent[30s])",
               "intervalFactor": 2,
               "legendFormat": "PUBREC Sent",
@@ -2988,6 +3264,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_pubrec_invalid_error[30s])",
               "intervalFactor": 2,
               "legendFormat": "PUBREC Invalid",
@@ -2997,8 +3277,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "QOS 2: PUBREC Received, Sent & Errors",
           "tooltip": {
             "shared": true,
@@ -3008,25 +3286,18 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "ops",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
@@ -3034,7 +3305,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 8,
@@ -3066,6 +3340,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_pubrel_received[30s])",
               "intervalFactor": 2,
               "legendFormat": "PUBREL Received",
@@ -3074,6 +3352,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_pubrel_sent[30s])",
               "intervalFactor": 2,
               "legendFormat": "PUBREL Sent",
@@ -3083,8 +3365,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "QOS 2: PUBREL Received & Sent",
           "tooltip": {
             "shared": true,
@@ -3094,25 +3374,18 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "ops",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
@@ -3120,7 +3393,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 8,
@@ -3152,6 +3428,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_pubcomp_received[30s])",
               "intervalFactor": 2,
               "legendFormat": "PUBCOMP Received",
@@ -3160,6 +3440,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_pubcomp_sent[30s])",
               "intervalFactor": 2,
               "legendFormat": "PUBCOMP Sent",
@@ -3168,6 +3452,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_pubcomp_invalid_error[30s])",
               "intervalFactor": 2,
               "legendFormat": "PUBCOMP Invalid",
@@ -3177,8 +3465,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "QOS 2: PUBCOMP Received, Sent & Errors",
           "tooltip": {
             "shared": true,
@@ -3188,36 +3474,41 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "ops",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
         }
       ],
-      "repeat": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "MQTT PUBLISH",
       "type": "row"
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3229,7 +3520,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -3261,6 +3555,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_pingreq_received[30s])",
               "intervalFactor": 2,
               "legendFormat": "PINGREQ Received",
@@ -3269,6 +3567,10 @@
               "step": 2
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_pingresp_sent[30s])",
               "intervalFactor": 2,
               "legendFormat": "PINGRESP Sent",
@@ -3278,8 +3580,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "PINGREQ & PINGRESP",
           "tooltip": {
             "shared": true,
@@ -3289,36 +3589,41 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "ops",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
         }
       ],
-      "repeat": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "MQTT PING",
       "type": "row"
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -3330,7 +3635,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -3361,6 +3669,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "client_expired",
               "intervalFactor": 2,
               "legendFormat": "Expired Clients",
@@ -3370,8 +3682,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Expired Clients",
           "tooltip": {
             "shared": true,
@@ -3381,25 +3691,18 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
@@ -3407,7 +3710,10 @@
         {
           "aliasColors": {},
           "bars": false,
-          "datasource": "Prometheus",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fill": 1,
           "gridPos": {
             "h": 7,
@@ -3438,6 +3744,10 @@
           "steppedLine": false,
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "expr": "rate(mqtt_invalid_msg_size_error[30s])",
               "intervalFactor": 2,
               "legendFormat": "Invalid Message Size Error",
@@ -3447,8 +3757,6 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
           "title": "Invalid Message Size Error",
           "tooltip": {
             "shared": true,
@@ -3458,37 +3766,38 @@
           "type": "graph",
           "xaxis": {
             "mode": "time",
-            "name": null,
             "show": true,
             "values": []
           },
           "yaxes": [
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             },
             {
               "format": "short",
-              "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
               "show": true
             }
           ]
         }
       ],
-      "repeat": null,
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "MISC",
       "type": "row"
     }
   ],
   "refresh": "5s",
-  "schemaVersion": 16,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -3526,5 +3835,6 @@
   "timezone": "browser",
   "title": "VerneMQ Node Metrics",
   "uid": "grXNcy_iz",
-  "version": 1
+  "version": 2,
+  "weekStart": ""
 }
