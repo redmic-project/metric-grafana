@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -22,8 +25,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 20,
-  "iteration": 1663926754107,
+  "id": 18,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -39,6 +41,8 @@
             "fixedColor": "#1fff07",
             "mode": "fixed"
           },
+          "decimals": 0,
+          "displayName": "Number of lines",
           "mappings": [
             {
               "options": {
@@ -50,8 +54,20 @@
                 }
               },
               "type": "special"
+            },
+            {
+              "options": {
+                "match": "empty",
+                "result": {
+                  "color": "#1fff07",
+                  "index": 1,
+                  "text": "0"
+                }
+              },
+              "type": "special"
             }
           ],
+          "min": 0,
           "noValue": "0",
           "thresholds": {
             "mode": "absolute",
@@ -62,13 +78,13 @@
               }
             ]
           },
-          "unit": "short"
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 4,
-        "w": 8,
+        "w": 12,
         "x": 0,
         "y": 0
       },
@@ -80,7 +96,7 @@
         "colorMode": "value",
         "graphMode": "area",
         "justifyMode": "auto",
-        "orientation": "horizontal",
+        "orientation": "vertical",
         "reduceOptions": {
           "calcs": [
             "sum"
@@ -88,22 +104,24 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "textMode": "value"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\"})[$__interval]))",
+          "editorMode": "code",
+          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\", level=~\"$level\"})[$__interval]))",
           "hide": false,
           "legendFormat": "",
+          "queryType": "range",
           "refId": "A"
         }
       ],
-      "title": "Log lines",
+      "title": "Log lines count",
       "type": "stat"
     },
     {
@@ -118,6 +136,8 @@
             "fixedColor": "blue",
             "mode": "fixed"
           },
+          "decimals": 0,
+          "displayName": "Number of matched lines",
           "mappings": [
             {
               "options": {
@@ -129,87 +149,19 @@
                 }
               },
               "type": "special"
-            }
-          ],
-          "noValue": "0",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "blue",
-                "value": null
-              }
-            ]
-          },
-          "unit": "short"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 8,
-        "x": 8,
-        "y": 0
-      },
-      "id": 6,
-      "interval": "1m",
-      "links": [],
-      "maxDataPoints": 20,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "horizontal",
-        "reduceOptions": {
-          "calcs": [
-            "sum"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.3.3",
-      "targets": [
-        {
-          "datasource": {
-            "type": "loki",
-            "uid": "P8E80F9AEF21F6940"
-          },
-          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\"} |~ \"(?i)$searchable_pattern\")[$__interval]))",
-          "hide": false,
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "Log lines with '$searchable_pattern'",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "loki",
-        "uid": "P8E80F9AEF21F6940"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "blue",
-            "mode": "fixed"
-          },
-          "mappings": [
+            },
             {
               "options": {
-                "match": "null",
+                "match": "empty",
                 "result": {
                   "color": "blue",
-                  "index": 0,
+                  "index": 1,
                   "text": "0"
                 }
               },
               "type": "special"
             }
           ],
-          "max": 100,
           "min": 0,
           "noValue": "0",
           "thresholds": {
@@ -221,48 +173,51 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 4,
-        "w": 8,
-        "x": 16,
+        "w": 12,
+        "x": 12,
         "y": 0
       },
-      "id": 9,
+      "id": 22,
       "interval": "1m",
       "links": [],
       "maxDataPoints": 20,
       "options": {
-        "orientation": "horizontal",
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "vertical",
         "reduceOptions": {
           "calcs": [
-            "mean"
+            "sum"
           ],
           "fields": "",
           "values": false
         },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": false,
-        "text": {}
+        "textMode": "value"
       },
-      "pluginVersion": "8.3.3",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
           "datasource": {
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\"} |~ \"(?i)$searchable_pattern\")[$__interval])) * 100 / sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\"})[$__interval]))",
+          "editorMode": "code",
+          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\", level=~\"$level\"} |~ \"(?i)$searchable_pattern\")[$__interval]))",
           "hide": false,
           "legendFormat": "",
+          "queryType": "range",
           "refId": "A"
         }
       ],
-      "title": "Matched '$searchable_pattern' ratio",
-      "type": "gauge"
+      "title": "Log lines with '$searchable_pattern' count",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -294,9 +249,11 @@
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "{stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\"} |~ \"(?i)$searchable_pattern\" | json | line_format \"{{.log}}\" | label_format log=\"\"",
+          "editorMode": "code",
+          "expr": "{stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\", level=~\"$level\"} |~ \"(?i)$searchable_pattern\"",
           "hide": false,
           "legendFormat": "a",
+          "queryType": "range",
           "refId": "A"
         }
       ],
@@ -334,7 +291,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#A93226",
+                  "fixedColor": "#705da0",
                   "mode": "fixed"
                 }
               }
@@ -349,7 +306,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#58D68D",
+                  "fixedColor": "#1f78c1",
                   "mode": "fixed"
                 }
               }
@@ -364,7 +321,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#FF0000",
+                  "fixedColor": "#e24d42",
                   "mode": "fixed"
                 }
               }
@@ -379,7 +336,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#5DADE2",
+                  "fixedColor": "#7eb26d",
                   "mode": "fixed"
                 }
               }
@@ -394,7 +351,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#F9E79F",
+                  "fixedColor": "#6ed0e0",
                   "mode": "fixed"
                 }
               }
@@ -409,7 +366,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#ABB2B9",
+                  "fixedColor": "#8e8e8e",
                   "mode": "fixed"
                 }
               }
@@ -424,7 +381,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#FFC300",
+                  "fixedColor": "#f5b73d",
                   "mode": "fixed"
                 }
               }
@@ -450,6 +407,7 @@
           "calcs": [],
           "displayMode": "table",
           "placement": "right",
+          "showLegend": true,
           "values": [
             "value",
             "percent"
@@ -464,7 +422,8 @@
           "values": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "7.0.4",
@@ -474,10 +433,12 @@
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\"} |~ `(?i)(alert)|(crit)|(critical)|(fatal)|(emerg)`)[$__interval]))",
+          "editorMode": "code",
+          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\", level=~\"$level\", level=\"critical\"} |~ \"(?i)$searchable_pattern\")[$__interval]))",
           "hide": false,
           "instant": false,
           "legendFormat": "Critical",
+          "queryType": "range",
           "range": true,
           "refId": "Critical log"
         },
@@ -486,9 +447,11 @@
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\"} |~ `(?i)(error)|(eror)|(err)`)[$__interval]))",
+          "editorMode": "code",
+          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\", level=~\"$level\", level=\"error\"} |~ \"(?i)$searchable_pattern\")[$__interval]))",
           "hide": false,
           "legendFormat": "Error",
+          "queryType": "range",
           "refId": "Error log"
         },
         {
@@ -496,9 +459,11 @@
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\"} |~ `(?i)(warn)|(warning)`)[$__interval]))",
+          "editorMode": "code",
+          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\", level=~\"$level\", level=\"warning\"} |~ \"(?i)$searchable_pattern\")[$__interval]))",
           "hide": false,
           "legendFormat": "Warning",
+          "queryType": "range",
           "refId": "Warning log"
         },
         {
@@ -506,9 +471,11 @@
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\"} |~ `(?i)(info)|(information)|(informational)|(notice)`)[$__interval]))",
+          "editorMode": "code",
+          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\", level=~\"$level\", level=\"info\"} |~ \"(?i)$searchable_pattern\")[$__interval]))",
           "hide": false,
           "legendFormat": "Info",
+          "queryType": "range",
           "refId": "Info log"
         },
         {
@@ -516,9 +483,11 @@
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\"} |~ `(?i)(debug)|(dbug)`)[$__interval]))",
+          "editorMode": "code",
+          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\", level=~\"$level\", level=\"debug\"} |~ \"(?i)$searchable_pattern\")[$__interval]))",
           "hide": false,
           "legendFormat": "Debug",
+          "queryType": "range",
           "refId": "Debug log"
         },
         {
@@ -526,9 +495,11 @@
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\"} |~ `(?i)trace`)[$__interval]))",
+          "editorMode": "code",
+          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\", level=~\"$level\", level=\"trace\"} |~ \"(?i)$searchable_pattern\")[$__interval]))",
           "hide": false,
           "legendFormat": "Trace",
+          "queryType": "range",
           "refId": "Trace log"
         },
         {
@@ -536,13 +507,15 @@
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\"} !~ `(?i)(alert)|(crit)|(critical)|(fatal)|(emerg)|(error)|(eror)|(err)|(warn)|(warning)|(info)|(information)|(informational)|(notice)|(debug)|(dbug)|(trace)`)[$__interval]))",
+          "editorMode": "code",
+          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\", level!~\"critical|error|warning|info|debug|trace\"} |~ \"(?i)$searchable_pattern\")[$__interval]))",
           "hide": false,
           "legendFormat": "Unknown",
+          "queryType": "range",
           "refId": "Unknown log"
         }
       ],
-      "title": "Log level count",
+      "title": "Count by level",
       "type": "piechart"
     },
     {
@@ -587,6 +560,7 @@
           "calcs": [],
           "displayMode": "table",
           "placement": "right",
+          "showLegend": true,
           "values": [
             "value",
             "percent"
@@ -601,7 +575,8 @@
           "values": false
         },
         "tooltip": {
-          "mode": "single"
+          "mode": "single",
+          "sort": "none"
         }
       },
       "pluginVersion": "6.4.3",
@@ -611,8 +586,10 @@
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\"} |~ \"(?i)$searchable_pattern\")[$__interval])) by (service_name)",
+          "editorMode": "code",
+          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\", level=~\"$level\"} |~ \"(?i)$searchable_pattern\")[$__interval])) by (service_name)",
           "legendFormat": "{{service_name}}",
+          "queryType": "range",
           "refId": "A"
         }
       ],
@@ -630,6 +607,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "left",
             "barAlignment": 0,
@@ -679,7 +658,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#A93226",
+                  "fixedColor": "#705da0",
                   "mode": "fixed"
                 }
               }
@@ -694,7 +673,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#58D68D",
+                  "fixedColor": "#1f78c1",
                   "mode": "fixed"
                 }
               }
@@ -709,7 +688,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#FF0000",
+                  "fixedColor": "#e24d42",
                   "mode": "fixed"
                 }
               }
@@ -724,7 +703,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#5DADE2",
+                  "fixedColor": "#7eb26d",
                   "mode": "fixed"
                 }
               }
@@ -739,7 +718,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#F9E79F",
+                  "fixedColor": "#6ed0e0",
                   "mode": "fixed"
                 }
               }
@@ -754,7 +733,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#ABB2B9",
+                  "fixedColor": "#8e8e8e",
                   "mode": "fixed"
                 }
               }
@@ -769,7 +748,7 @@
               {
                 "id": "color",
                 "value": {
-                  "fixedColor": "#FFC300",
+                  "fixedColor": "#f5b73d",
                   "mode": "fixed"
                 }
               }
@@ -791,10 +770,12 @@
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "right"
+          "placement": "right",
+          "showLegend": true
         },
         "tooltip": {
-          "mode": "multi"
+          "mode": "multi",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.3.3",
@@ -804,10 +785,12 @@
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\"} |~ `(?i)(alert)|(crit)|(critical)|(fatal)|(emerg)`)[$__interval]))",
+          "editorMode": "code",
+          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\", level=~\"$level\", level=\"critical\"} |~ \"(?i)$searchable_pattern\")[$__interval]))",
           "hide": false,
           "instant": false,
           "legendFormat": "Critical",
+          "queryType": "range",
           "range": true,
           "refId": "Critical log"
         },
@@ -816,9 +799,11 @@
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\"} |~ `(?i)(error)|(eror)|(err)`)[$__interval]))",
+          "editorMode": "code",
+          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\", level=~\"$level\", level=\"error\"} |~ \"(?i)$searchable_pattern\")[$__interval]))",
           "hide": false,
           "legendFormat": "Error",
+          "queryType": "range",
           "refId": "Error log"
         },
         {
@@ -826,9 +811,11 @@
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\"} |~ `(?i)(warn)|(warning)`)[$__interval]))",
+          "editorMode": "code",
+          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\", level=~\"$level\", level=\"warning\"} |~ \"(?i)$searchable_pattern\")[$__interval]))",
           "hide": false,
           "legendFormat": "Warning",
+          "queryType": "range",
           "refId": "Warning log"
         },
         {
@@ -836,9 +823,11 @@
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\"} |~ `(?i)(info)|(information)|(informational)|(notice)`)[$__interval]))",
+          "editorMode": "code",
+          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\", level=~\"$level\", level=\"info\"} |~ \"(?i)$searchable_pattern\")[$__interval]))",
           "hide": false,
           "legendFormat": "Info",
+          "queryType": "range",
           "refId": "Info log"
         },
         {
@@ -846,9 +835,11 @@
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\"} |~ `(?i)(debug)|(dbug)`)[$__interval]))",
+          "editorMode": "code",
+          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\", level=~\"$level\", level=\"debug\"} |~ \"(?i)$searchable_pattern\")[$__interval]))",
           "hide": false,
           "legendFormat": "Debug",
+          "queryType": "range",
           "refId": "Debug log"
         },
         {
@@ -856,9 +847,11 @@
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\"} |~ `(?i)trace`)[$__interval]))",
+          "editorMode": "code",
+          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\", level=~\"$level\", level=\"trace\"} |~ \"(?i)$searchable_pattern\")[$__interval]))",
           "hide": false,
           "legendFormat": "Trace",
+          "queryType": "range",
           "refId": "Trace log"
         },
         {
@@ -866,13 +859,15 @@
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\"} !~ `(?i)(alert)|(crit)|(critical)|(fatal)|(emerg)|(error)|(eror)|(err)|(warn)|(warning)|(info)|(information)|(informational)|(notice)|(debug)|(dbug)|(trace)`)[$__interval]))",
+          "editorMode": "code",
+          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\", level!~\"critical|error|warning|info|debug|trace\"} |~ \"(?i)$searchable_pattern\")[$__interval]))",
           "hide": false,
           "legendFormat": "Unknown",
+          "queryType": "range",
           "refId": "Unknown log"
         }
       ],
-      "title": "Log level count over time",
+      "title": "Count by level over time",
       "type": "timeseries"
     },
     {
@@ -886,6 +881,8 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "left",
             "barAlignment": 0,
@@ -946,11 +943,13 @@
           ],
           "displayMode": "table",
           "placement": "right",
+          "showLegend": true,
           "sortBy": "Last *",
           "sortDesc": true
         },
         "tooltip": {
-          "mode": "multi"
+          "mode": "multi",
+          "sort": "none"
         }
       },
       "pluginVersion": "8.3.3",
@@ -960,8 +959,10 @@
             "type": "loki",
             "uid": "P8E80F9AEF21F6940"
           },
-          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\"} |~ \"(?i)$searchable_pattern\")[$__interval])) by (service_name)",
+          "editorMode": "code",
+          "expr": "sum(count_over_time(({stack_name=~\"$stack_name\", service_name=~\"$service_name\", slot=~\"$task_slot\", container_name=~\"$container_name\", level=~\"$level\"} |~ \"(?i)$searchable_pattern\")[$__interval])) by (service_name)",
           "legendFormat": "{{service_name}}",
+          "queryType": "range",
           "refId": "A"
         }
       ],
@@ -969,14 +970,14 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "10s",
-  "schemaVersion": 34,
+  "refresh": "1m",
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
-        "allValue": "",
+        "allValue": ".+",
         "current": {
           "selected": false,
           "text": "All",
@@ -1005,7 +1006,7 @@
         "useTags": false
       },
       {
-        "allValue": "",
+        "allValue": ".+",
         "current": {
           "selected": true,
           "text": [
@@ -1038,6 +1039,7 @@
         "useTags": false
       },
       {
+        "allValue": ".+",
         "current": {
           "selected": true,
           "text": [
@@ -1070,10 +1072,15 @@
         "useTags": false
       },
       {
+        "allValue": ".+",
         "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "loki",
@@ -1089,6 +1096,36 @@
         "options": [],
         "query": "label_values({stack_name =~ \"$stack_name\", service_name =~ \"$service_name\", slot =~ \"$task_slot\"}, container_name)",
         "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "allValue": ".*",
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "loki",
+          "uid": "P8E80F9AEF21F6940"
+        },
+        "definition": "label_values(level)",
+        "description": "Detected value for log level (by fluent-bit)",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Level",
+        "multi": true,
+        "name": "level",
+        "options": [],
+        "query": "label_values(level)",
+        "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
         "sort": 1,
@@ -1117,7 +1154,7 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
@@ -1134,6 +1171,6 @@
   "timezone": "",
   "title": "Logs",
   "uid": "q8NhPr07k",
-  "version": 15,
+  "version": 5,
   "weekStart": ""
 }
