@@ -46,33 +46,11 @@ services:
         target: ${GF_PATHS_PROVISIONING}/datasources/datasources.yml
       - source: dashboards-providers-config
         target: ${GF_PATHS_PROVISIONING}/dashboards/dashboards_providers.yml
-      - source: nodes-dashboard-config
-        target: ${DASHBOARDS_PATH}/swarmprom-nodes.json
-      - source: services-dashboard-config
-        target: ${DASHBOARDS_PATH}/swarmprom-services.json
-      - source: prometheus-dashboard-config
-        target: ${DASHBOARDS_PATH}/swarmprom-prometheus.json
-      - source: docker-dashboard-config
-        target: ${DASHBOARDS_PATH}/docker.json
-      - source: elasticsearch-dashboard-config
-        target: ${DASHBOARDS_PATH}/elasticsearch.json
-      - source: jvm-dashboard-config
-        target: ${DASHBOARDS_PATH}/jvm.json
-      - source: kafka-dashboard-config
-        target: ${DASHBOARDS_PATH}/kafka.json
-      - source: logging-loki-dashboard-config
-        target: ${DASHBOARDS_PATH}/logging-loki.json
-      - source: postgres-dashboard-config
-        target: ${DASHBOARDS_PATH}/postgres.json
-      - source: traefik-dashboard-config
-        target: ${DASHBOARDS_PATH}/traefik.json
-      - source: vernemq-dashboard-config
-        target: ${DASHBOARDS_PATH}/vernemq.json
     deploy:
       mode: replicated
       replicas: ${REPLICAS:-1}
       labels:
-        traefik.enable: 'true'
+        traefik.enable: ${TRAEFIK_ENABLE:-true}
         traefik.http.routers.grafana.entrypoints: ${TRAEFIK_ENTRYPOINT:-http}
         traefik.http.routers.grafana.rule: Host(`${TRAEFIK_SUBDOMAIN}.${PUBLIC_HOSTNAME}`)
         traefik.http.services.grafana.loadbalancer.server.port: ${GF_SERVER_HTTP_PORT}
@@ -117,47 +95,3 @@ configs:
   dashboards-providers-config:
     name: ${DASHBOARDS_PROVIDERS_CONFIG_NAME:-grafana-dashboards-providers}
     file: ./config/dashboards_providers.yml
-
-  nodes-dashboard-config:
-    name: ${NODES_DASHBOARD_CONFIG_NAME:-grafana-nodes-dashboard}
-    file: ./config/dashboards/swarmprom-nodes.json
-
-  services-dashboard-config:
-    name: ${SERVICES_DASHBOARD_CONFIG_NAME:-grafana-services-dashboard}
-    file: ./config/dashboards/swarmprom-services.json
-
-  prometheus-dashboard-config:
-    name: ${PROMETHEUS_DASHBOARD_CONFIG_NAME:-grafana-prometheus-dashboard}
-    file: ./config/dashboards/swarmprom-prometheus.json
-
-  docker-dashboard-config:
-    name: ${DOCKER_DASHBOARD_CONFIG_NAME:-grafana-docker-dashboard}
-    file: ./config/dashboards/docker.json
-
-  elasticsearch-dashboard-config:
-    name: ${ELASTICSEARCH_DASHBOARD_CONFIG_NAME:-grafana-elasticsearch-dashboard}
-    file: ./config/dashboards/elasticsearch.json
-
-  jvm-dashboard-config:
-    name: ${JVM_DASHBOARD_CONFIG_NAME:-grafana-jvm-dashboard}
-    file: ./config/dashboards/jvm.json
-
-  kafka-dashboard-config:
-    name: ${KAFKA_DASHBOARD_CONFIG_NAME:-grafana-kafka-dashboard}
-    file: ./config/dashboards/kafka.json
-
-  logging-loki-dashboard-config:
-    name: ${LOGGING_LOKI_DASHBOARD_CONFIG_NAME:-logging-loki-dashboard}
-    file: ./config/dashboards/logging-loki.json
-
-  postgres-dashboard-config:
-    name: ${POSTGRES_DASHBOARD_CONFIG_NAME:-grafana-postgres-dashboard}
-    file: ./config/dashboards/postgres.json
-
-  traefik-dashboard-config:
-    name: ${TRAEFIK_DASHBOARD_CONFIG_NAME:-grafana-traefik-dashboard}
-    file: ./config/dashboards/traefik.json
-
-  vernemq-dashboard-config:
-    name: ${VERNEMQ_DASHBOARD_CONFIG_NAME:-grafana-vernemq-dashboard}
-    file: ./config/dashboards/vernemq.json
