@@ -43,6 +43,7 @@ services:
       postgres-net:
     volumes:
       - data-vol:${GF_PATHS_DATA}
+      - dashboards-vol:${DASHBOARDS_PATH}
     configs:
       - source: datasources-config
         target: ${GF_PATHS_PROVISIONING}/datasources/datasources.yml

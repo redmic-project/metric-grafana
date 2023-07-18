@@ -6,3 +6,9 @@ volumes:
     driver: 'cloudstor:aws'
     driver_opts:
       backing: shared
+
+  dashboards-vol:
+    name: ${DASHBOARDS_VOL_NAME}
+    driver: 'cloudstor:aws'
+    driver_opts:
+      backing: shared
