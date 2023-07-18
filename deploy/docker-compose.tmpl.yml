@@ -54,8 +54,16 @@ services:
       replicas: ${REPLICAS:-1}
       labels:
         traefik.enable: ${TRAEFIK_ENABLE:-true}
-        traefik.http.routers.grafana.entrypoints: ${TRAEFIK_ENTRYPOINT:-http}
+
+        traefik.http.routers.grafana.entrypoints: ${TRAEFIK_ENTRYPOINT}
         traefik.http.routers.grafana.rule: Host(`${TRAEFIK_SUBDOMAIN}.${PUBLIC_HOSTNAME}`)
+
+        traefik.http.routers.grafana-redmic-embed.entrypoints: ${TRAEFIK_ENTRYPOINT}
+        traefik.http.routers.grafana-redmic-embed.rule: Host(`${TRAEFIK_SUBDOMAIN}-${REDMIC_AUTH_TOKEN}.${PUBLIC_HOSTNAME}`) && HeadersRegexp(`Referer`, `.*${PUBLIC_HOSTNAME}/`)
+        traefik.http.middlewares.grafana-redmic-auth-header.headers.customrequestheaders.Authorization: Bearer ${REDMIC_AUTH_TOKEN}
+        traefik.http.middlewares.grafana-redmic-csp-header.headers.customresponseheaders.Content-Security-Policy: frame-ancestors ${PUBLIC_HOSTNAME}
+        traefik.http.routers.grafana-redmic-embed.middlewares: grafana-redmic-auth-header, grafana-redmic-csp-header
+
         traefik.http.services.grafana.loadbalancer.server.port: ${GF_SERVER_HTTP_PORT}
       restart_policy:
         delay: ${RESTART_DELAY:-10s}
