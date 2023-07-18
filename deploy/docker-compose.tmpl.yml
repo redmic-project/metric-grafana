@@ -13,6 +13,7 @@ services:
       GF_SERVER_ENABLE_GZIP:
       GF_SECURITY_ADMIN_USER:
       GF_SECURITY_ADMIN_PASSWORD:
+      GF_SECURITY_ALLOW_EMBEDDING:
       GF_USERS_ALLOW_SIGN_UP:
       GF_USERS_AUTO_ASSIGN_ORG:
       GF_USERS_AUTO_ASSIGN_ORG_ID:
@@ -27,6 +28,7 @@ services:
       GF_LOG_MODE:
       GF_LOG_LEVEL:
       GF_AUTH_ANONYMOUS_ENABLED:
+      GF_FEATURE_TOGGLES_ENABLE:
       DASHBOARDS_PATH:
       PROMETHEUS_URL:
       LOKI_URL:
@@ -41,6 +43,7 @@ services:
       postgres-net:
     volumes:
       - data-vol:${GF_PATHS_DATA}
+      - dashboards-vol:${DASHBOARDS_PATH}
     configs:
       - source: datasources-config
         target: ${GF_PATHS_PROVISIONING}/datasources/datasources.yml
@@ -51,8 +54,16 @@ services:
       replicas: ${REPLICAS:-1}
       labels:
         traefik.enable: ${TRAEFIK_ENABLE:-true}
-        traefik.http.routers.grafana.entrypoints: ${TRAEFIK_ENTRYPOINT:-http}
+
+        traefik.http.routers.grafana.entrypoints: ${TRAEFIK_ENTRYPOINT}
         traefik.http.routers.grafana.rule: Host(`${TRAEFIK_SUBDOMAIN}.${PUBLIC_HOSTNAME}`)
+
+        traefik.http.routers.grafana-redmic-embed.entrypoints: ${TRAEFIK_ENTRYPOINT}
+        traefik.http.routers.grafana-redmic-embed.rule: Host(`${TRAEFIK_SUBDOMAIN}-${REDMIC_AUTH_TOKEN}.${PUBLIC_HOSTNAME}`) && HeadersRegexp(`Referer`, `.*${PUBLIC_HOSTNAME}/`)
+        traefik.http.middlewares.grafana-redmic-auth-header.headers.customrequestheaders.Authorization: Bearer ${REDMIC_AUTH_TOKEN}
+        traefik.http.middlewares.grafana-redmic-csp-header.headers.customresponseheaders.Content-Security-Policy: frame-ancestors ${PUBLIC_HOSTNAME}
+        traefik.http.routers.grafana-redmic-embed.middlewares: grafana-redmic-auth-header, grafana-redmic-csp-header
+
         traefik.http.services.grafana.loadbalancer.server.port: ${GF_SERVER_HTTP_PORT}
       restart_policy:
         delay: ${RESTART_DELAY:-10s}
